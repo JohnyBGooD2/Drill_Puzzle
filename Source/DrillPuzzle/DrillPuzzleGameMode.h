@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DrillPuzzle.h"
+//#include "BuildCube.h"
 #include "GameFramework/GameModeBase.h"
 #include "DrillPuzzleGameMode.generated.h"
 
@@ -13,6 +15,15 @@ class ADrillPuzzleGameMode : public AGameModeBase
 
 public:
 	ADrillPuzzleGameMode();
+public:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, Category = "My_Spawning")
+	TSubclassOf<class ABuildCube> BuildCubeBlueprint;
+private:
+	FSpawnBuildCubesCounters SpawnCounter;
+
 };
 
 
