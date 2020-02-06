@@ -49,6 +49,9 @@ SourceArt/**/*.tga
 Binaries/*
 Plugins/*/Binaries/*
 
+# Visual Studio Folder
+.vs/*
+
 # Builds
 Build/*
 
