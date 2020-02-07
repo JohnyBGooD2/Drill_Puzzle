@@ -23,6 +23,7 @@ public:
 	TSubclassOf<class ABuildCube> BuildCubeBlueprint;
 private:
 	FSpawnBuildCubesCounters SpawnCounter;
+	FVector SpawnLocation;
 
 };
 

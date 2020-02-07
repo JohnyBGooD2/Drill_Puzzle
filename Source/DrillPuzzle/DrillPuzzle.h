@@ -11,12 +11,12 @@ struct FSpawnBuildCubesCounters
 	GENERATED_USTRUCT_BODY() //GENERATED_BODY()
 
 	UPROPERTY()
-	int32 xCount;
+	int32 xCount = 0;
 
 	UPROPERTY()
-	int32 yCount;
+	int32 yCount = 0;
 
 	UPROPERTY()
-	int32 zCount;
+	int32 zCount = 0;
 
 };

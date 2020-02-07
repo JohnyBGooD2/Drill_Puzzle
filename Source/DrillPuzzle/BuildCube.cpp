@@ -20,7 +20,7 @@ ABuildCube::ABuildCube()
 
 }
 
-// Called when the game starts or when spawned
+// Called when the game starts or when spawned 
 void ABuildCube::BeginPlay()
 {
 	Super::BeginPlay();
