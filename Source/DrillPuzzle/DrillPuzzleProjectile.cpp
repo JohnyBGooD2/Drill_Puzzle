@@ -27,6 +27,8 @@ ADrillPuzzleProjectile::ADrillPuzzleProjectile()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
 
+	ProjectileMovement->Velocity = FVector(0.0f, 0.0f, 1.0f);
+
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
 }

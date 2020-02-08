@@ -54,75 +54,63 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 	UWorld* World = GetWorld();
 	if (World)
 	{
-		/*FVector SpawnLocation = FVector(FMath::RandRange(-800.0f, 800.0f), FMath::RandRange(-800.0f, 800.0f), 40.0f);
-		World->SpawnActor<ABuildCube>(BuildCubeBlueprint, SpawnLocation, FRotator::ZeroRotator);*/
+		FVector playerLocation = World->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 
-		float SpawnHeight = 0.0f;
+		float spawnDistance = FMath::RandRange(500.0f, 1500.0f);
 
-		
+		FVector spawnLocation = playerLocation;
+
+	/*	float randomAngle = FMath::RandRange(0.0f, 360.0f);
+		FVector enemyLocation = playerLocation;
+
+		enemyLocation.X += FMath::Cos(randomAngle * 3.14f / 180.0f) * distance;
+		enemyLocation.Y += FMath::Sin(randomAngle * 3.14f / 180.0f) * distance;
+		enemyLocation.Z = 210.0f;*/
+
+		/*FVector spawnLocation = FVector(FMath::RandRange(-100.0f, 100.0f), 
+		FMath::RandRange(-100.0f, 100.0f), FMath::RandRange(-100.0f, 100.0f));*/
+
+		spawnLocation += FVector(FMath::RandRange(-100.0f, 100.0f),
+		FMath::RandRange(-100.0f, 100.0f), FMath::RandRange(-100.0f, 100.0f));
+
+		spawnLocation = (spawnLocation - playerLocation).GetSafeNormal() * spawnDistance;
+
+		//FVector SpawnLocation = FVector(FMath::RandRange(-800.0f, 800.0f), FMath::RandRange(-800.0f, 800.0f), 40.0f);
+		World->SpawnActor<ABuildCube>(BuildCubeBlueprint, spawnLocation, FRotator::ZeroRotator);
 
 		// x - depth, y - width, z - height
 
-		if (SpawnCounter.zCount < 100)
 
+		/*
+
+		if (SpawnCounter.yCount < 100)
 		{
-
 			if (SpawnCounter.xCount < 100) //&& SpawnCounter.yCount < 1000) //&& SpawnCounter.zCount < 1000)
 			{
 				for (int x = 0; x < 10; x++)
 				{
-					/*for (int y = 0; y < 1000; y++)
-					{
-						World->SpawnActor<ABuildCube>(BuildCubeBlueprint, SpawnLocation, FRotator::ZeroRotator);
-						SpawnLocation.Y += 1.0f;
-						SpawnCounter.yCount += 1;
-					}*/
-					//SpawnLocation.Y = 0.0f;
-					//SpawnLocation.X += 1.0f;
-
-					//SpawnCounter.xCount += 1;
-
 					World->SpawnActor<ABuildCube>(BuildCubeBlueprint, SpawnLocation, FRotator::ZeroRotator);
-					//SpawnLocation.X += 1.0f;
 					SpawnCounter.xCount += 1;
 					SpawnLocation.X += 10.0f;
 				}
-
-				//SpawnLocation.Y += 1.0f;
-				//SpawnLocation.X = 0.0f;
-
-
-
-				//SpawnCounter.xCount = 0
-
 			}
 			else
 			{
-				SpawnCounter.zCount += 1;
+				SpawnCounter.yCount += 1;
 				SpawnCounter.xCount = 0;
 
-
-				SpawnLocation.Z += 10.0f;
+				SpawnLocation.Y += 10.0f;
 				SpawnLocation.X = 0.0f;
 			}
-
 			GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
 			FString::Printf(TEXT("%d"), SpawnCounter.yCount)); // %f - float %d - int
-
 		}
 
+		*/
 	}
-
-
-
-	//SpawnCounter.xCount += 1;
-
-	//int32 check = 1;
 
 	
 
-	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	//FString::Printf(TEXT("%f"), (float)(SpawnCounter.xCount))); // %f - float %d - int
 }
 
 
