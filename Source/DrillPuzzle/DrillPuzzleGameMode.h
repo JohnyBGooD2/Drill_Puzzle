@@ -24,6 +24,7 @@ public:
 private:
 	FSpawnBuildCubesCounters SpawnCounter;
 	FVector SpawnLocation;
+	int32 BuildCubesCount;
 
 };
 

@@ -60,23 +60,24 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 
 		FVector spawnLocation = playerLocation;
 
-	/*	float randomAngle = FMath::RandRange(0.0f, 360.0f);
-		FVector enemyLocation = playerLocation;
+		float randomAngle = FMath::RandRange(0.0f, 360.0f);
 
-		enemyLocation.X += FMath::Cos(randomAngle * 3.14f / 180.0f) * distance;
-		enemyLocation.Y += FMath::Sin(randomAngle * 3.14f / 180.0f) * distance;
-		enemyLocation.Z = 210.0f;*/
+		spawnLocation.X += FMath::Cos(randomAngle * 3.14f / 180.0f) * spawnDistance;
+		spawnLocation.Y += FMath::Sin(randomAngle * 3.14f / 180.0f) * spawnDistance;
+		spawnLocation.Z += FMath::RandRange(-1000.0f, 1000.0f);
 
-		/*FVector spawnLocation = FVector(FMath::RandRange(-100.0f, 100.0f), 
-		FMath::RandRange(-100.0f, 100.0f), FMath::RandRange(-100.0f, 100.0f));*/
-
-		spawnLocation += FVector(FMath::RandRange(-100.0f, 100.0f),
+	/*	spawnLocation += FVector(FMath::RandRange(-100.0f, 100.0f),
 		FMath::RandRange(-100.0f, 100.0f), FMath::RandRange(-100.0f, 100.0f));
 
-		spawnLocation = (spawnLocation - playerLocation).GetSafeNormal() * spawnDistance;
+		spawnLocation = (spawnLocation - playerLocation).GetSafeNormal() * spawnDistance;*/
 
 		//FVector SpawnLocation = FVector(FMath::RandRange(-800.0f, 800.0f), FMath::RandRange(-800.0f, 800.0f), 40.0f);
+
+
 		World->SpawnActor<ABuildCube>(BuildCubeBlueprint, spawnLocation, FRotator::ZeroRotator);
+		BuildCubesCount++;
+		GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+		FString::Printf(TEXT("%d"), BuildCubesCount)); // %f - float %d - int
 
 		// x - depth, y - width, z - height
 

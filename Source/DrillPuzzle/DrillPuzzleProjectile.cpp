@@ -3,12 +3,13 @@
 #include "DrillPuzzleProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "BuildCube.h"
 
 ADrillPuzzleProjectile::ADrillPuzzleProjectile() 
 {
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
-	CollisionComp->InitSphereRadius(5.0f);
+	CollisionComp->InitSphereRadius(37.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComp->OnComponentHit.AddDynamic(this, &ADrillPuzzleProjectile::OnHit);		// set up a notification for when this component hits something blocking
 
@@ -31,15 +32,55 @@ ADrillPuzzleProjectile::ADrillPuzzleProjectile()
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
+
+	// Create attract sphere
+	AttractComp = CreateDefaultSubobject<USphereComponent>(TEXT("AttractComp"));
+	AttractComp->InitSphereRadius(200.0f);
+	AttractComp->SetupAttachment(CollisionComp);
+	AttractComp->SetGenerateOverlapEvents(true);
+	AttractComp->OnComponentBeginOverlap.AddDynamic(this, &ADrillPuzzleProjectile::OnAttractOverlap);
+}
+
+void ADrillPuzzleProjectile::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	GetDistanceTo(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	//if (OtherActor == (GetWorld()->GetFirstPlayerController()->GetPawn()))
+	//{
+	//	((AMainGameMode*)GetWorld()->GetAuthGameMode())->OnGameOver(true);
+	//}
 }
 
 void ADrillPuzzleProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+
+	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+	//FString::Printf(TEXT("HitProjectile")));//, SpawnCounter.yCount)); // %f - float %d - int
+	if (OtherActor->IsA(ABuildCube::StaticClass()))
+	{
+		this->Destroy();
+	}
+
+
+
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	/*if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
 		Destroy();
+	}*/
+}
+
+void ADrillPuzzleProjectile::OnAttractOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+
+	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+	//FString::Printf(TEXT("AttractTrue")));//, SpawnCounter.yCount)); // %f - float %d - int
+
+	if (OtherActor->IsA(ABuildCube::StaticClass()))
+	{
+		Cast<ABuildCube>(OtherActor)->bAttract = true;
 	}
 }
