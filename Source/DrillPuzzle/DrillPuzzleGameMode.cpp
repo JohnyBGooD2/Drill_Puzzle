@@ -52,14 +52,11 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	UWorld* World = GetWorld();
-	if (World)
+	if (World && BuildCubesCount < 3500)
 	{
 		FVector playerLocation = World->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-
 		float spawnDistance = FMath::RandRange(500.0f, 1500.0f);
-
 		FVector spawnLocation = playerLocation;
-
 		float randomAngle = FMath::RandRange(0.0f, 360.0f);
 
 		spawnLocation.X += FMath::Cos(randomAngle * 3.14f / 180.0f) * spawnDistance;
@@ -76,8 +73,8 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 
 		World->SpawnActor<ABuildCube>(BuildCubeBlueprint, spawnLocation, FRotator::ZeroRotator);
 		BuildCubesCount++;
-		GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-		FString::Printf(TEXT("%d"), BuildCubesCount)); // %f - float %d - int
+		//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+		//FString::Printf(TEXT("%d"), BuildCubesCount)); // %f - float %d - int
 
 		// x - depth, y - width, z - height
 

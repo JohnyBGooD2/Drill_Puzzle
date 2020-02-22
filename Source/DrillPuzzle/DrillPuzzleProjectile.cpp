@@ -7,6 +7,7 @@
 
 ADrillPuzzleProjectile::ADrillPuzzleProjectile() 
 {
+	PrimaryActorTick.bCanEverTick = true;
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	CollisionComp->InitSphereRadius(37.0f);
@@ -44,7 +45,15 @@ ADrillPuzzleProjectile::ADrillPuzzleProjectile()
 void ADrillPuzzleProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	GetDistanceTo(GetWorld()->GetFirstPlayerController()->GetPawn());
+	float distToPlayer = GetDistanceTo(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	if (distToPlayer > 1000.0f)
+	{
+		Destroy();
+	}
+	
+	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+	//FString::Printf(TEXT("%f"), distToPlayer));//, SpawnCounter.yCount)); // %f - float %d - int
 
 	//if (OtherActor == (GetWorld()->GetFirstPlayerController()->GetPawn()))
 	//{

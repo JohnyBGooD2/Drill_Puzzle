@@ -19,7 +19,7 @@ ABuildCube::ABuildCube()
 
 	RootComponent = OverlapBox;
 
-	CubeMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CubeMesh"));
+	CubeMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CubeMesh")); 
 	CubeMesh->SetupAttachment(OverlapBox);
 }
 
