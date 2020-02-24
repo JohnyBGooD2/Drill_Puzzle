@@ -47,6 +47,9 @@ class ADrillPuzzleCharacter : public ACharacter
 
 public:
 	ADrillPuzzleCharacter();
+	/** First person camera */
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	//class UCameraComponent* FirstPersonCameraComponent;
 
 protected:
 	virtual void BeginPlay();

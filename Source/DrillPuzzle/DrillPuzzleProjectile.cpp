@@ -29,7 +29,7 @@ ADrillPuzzleProjectile::ADrillPuzzleProjectile()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
 
-	ProjectileMovement->Velocity = FVector(0.0f, 0.0f, 1.0f);
+	ProjectileMovement->Velocity = FVector(0.0f, 0.0f, 0.0f);
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
@@ -66,10 +66,10 @@ void ADrillPuzzleProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAc
 
 	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
 	//FString::Printf(TEXT("HitProjectile")));//, SpawnCounter.yCount)); // %f - float %d - int
-	if (OtherActor->IsA(ABuildCube::StaticClass()))
-	{
+	//if (OtherActor->IsA(ABuildCube::StaticClass()))
+	//{
 		this->Destroy();
-	}
+	//}
 
 
 

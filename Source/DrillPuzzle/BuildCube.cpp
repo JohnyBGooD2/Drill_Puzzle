@@ -54,7 +54,7 @@ void ABuildCube::Tick(float DeltaTime)
 		/*GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
 		FString::Printf(TEXT("%s"), this->bCharacterOverlapped ? TEXT("True") : TEXT("False")));*/
 
-		if (ProjectilesOverlapped.Num() > 0 && CharacterOverlapped.Num() == 0)
+		if (ProjectilesOverlapped.Num() > 0) //&& CharacterOverlapped.Num() == 0)
 		{
 				FVector NewLocation = GetActorLocation() + (ProjectilesOverlapped[0]->GetActorLocation() - GetActorLocation()) * DeltaTime * 2.5f;//.GetSafeNormal()
 				SetActorLocation(NewLocation);
