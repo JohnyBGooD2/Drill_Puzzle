@@ -7,6 +7,9 @@
 #include "DrillPuzzleCharacter.h"
 
 
+
+//IsValidLowLevel()
+
 // Sets default values
 ABuildCube::ABuildCube()
 {
@@ -20,13 +23,26 @@ ABuildCube::ABuildCube()
 	RootComponent = OverlapBox;
 
 	CubeMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CubeMesh")); 
-	CubeMesh->SetupAttachment(OverlapBox);
+	CubeMesh->SetupAttachment(OverlapBox); 
+
+	//CurrentGameMode = Cast<ADrillPuzzleGameMode>(GetWorld()->GetAuthGameMode());
+
+	//if (CurrentGameMode->IsValidLowLevel())
+	//{
+	//CurrentGameMode->RestartLevelHandler.AddDynamic(this, &ABuildCube::OnLevelRestartReload);
+	//}
 }
 
 // Called when the game starts or when spawned  
 void ABuildCube::BeginPlay()
 {
 	Super::BeginPlay();
+	CurrentGameMode = Cast<ADrillPuzzleGameMode>(GetWorld()->GetAuthGameMode());
+	if (CurrentGameMode->IsValidLowLevel())
+	{
+	    CurrentGameMode->RestartLevelHandler.AddDynamic(this, &ABuildCube::OnLevelRestartReload);
+	}
+	
 	
 }
 
@@ -89,4 +105,12 @@ UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 	{
 		bCharacterOverlapped = false;
 	}
+}
+
+void ABuildCube::OnLevelRestartReload()
+{
+	/*GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+	FString::Printf(TEXT("I hear level restart")));*/
+
+	Destroy();
 }

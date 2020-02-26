@@ -6,6 +6,8 @@
 #include "DrillPuzzleCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
+#include "DrillPuzzleGameMode.h"
+
 
 
 // Sets default values
@@ -46,7 +48,13 @@ void ALevelRange::OnEndOverlap(UPrimitiveComponent * OverlappedComp, AActor * Ot
 
 		GetWorld()->GetFirstPlayerController()->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
 
-		//UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+		ADrillPuzzleGameMode* CurrentGameMode = Cast<ADrillPuzzleGameMode>(GetWorld()->GetAuthGameMode());
+
+		if (CurrentGameMode->IsValidLowLevel())
+		{
+			CurrentGameMode->OnRestartAndReload();
+		}
+
 	}
 }
 

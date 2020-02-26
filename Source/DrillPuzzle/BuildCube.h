@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DrillPuzzleGameMode.h"
 #include "BuildCube.generated.h"
+
 
 UCLASS()
 class DRILLPUZZLE_API ABuildCube : public AActor
@@ -33,6 +35,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* CubeMesh;
 
+	UPROPERTY(VisibleAnywhere)
+	ADrillPuzzleGameMode* CurrentGameMode;
+
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep,
@@ -41,6 +46,9 @@ public:
 	UFUNCTION()
 	void OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, 
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION()
+	void OnLevelRestartReload(); // in brackets parameters of Dispatcher
 
 
 };

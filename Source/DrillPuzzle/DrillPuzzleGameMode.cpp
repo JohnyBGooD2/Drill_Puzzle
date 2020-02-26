@@ -44,7 +44,6 @@ void ADrillPuzzleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	SpawnLocation = FVector(0.0f, 0.0f, 140.0f);
-
 }
 
 void ADrillPuzzleGameMode::Tick(float DeltaTime)
@@ -107,8 +106,13 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 		*/
 	}
 
-	
+}
 
+void ADrillPuzzleGameMode::OnRestartAndReload()
+{
+	
+	RestartLevelHandler.Broadcast();  // parameters in Broadcast() brackets
+	BuildCubesCount = 0;
 }
 
 

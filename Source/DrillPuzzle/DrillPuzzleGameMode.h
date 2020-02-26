@@ -8,6 +8,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "DrillPuzzleGameMode.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLevelRestartAndReload);
+
 UCLASS(minimalapi)
 class ADrillPuzzleGameMode : public AGameModeBase
 {
@@ -21,6 +24,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "My_Spawning")
 	TSubclassOf<class ABuildCube> BuildCubeBlueprint;
+
+	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
+	FOnLevelRestartAndReload RestartLevelHandler;
+
+	void OnRestartAndReload();
+
 private:
 	FSpawnBuildCubesCounters SpawnCounter;
 	FVector SpawnLocation;
