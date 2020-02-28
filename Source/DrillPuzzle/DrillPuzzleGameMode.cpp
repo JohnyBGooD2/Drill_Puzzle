@@ -50,6 +50,14 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	EnumToTest = ETestEnum::ThirdEnumCheck;
+
+	//const TEnumAsByte<ETestEnum> EnumToPrint = ETestEnum::FirstEnumCheck;
+	//FString EnumAsString = UEnum::GetValueAsString(EnumToPrint.GetValue());
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+	FString::Printf(TEXT("%s"), *GETENUMSTRING("ETestEnum", EnumToTest))); // %f - float %d - int
+
 	UWorld* World = GetWorld();
 	if (World && BuildCubesCount < 3500)
 	{
@@ -111,6 +119,10 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 void ADrillPuzzleGameMode::OnRestartAndReload()
 {
 	
+	ADrillPuzzleCharacter* playerCharacter = Cast<ADrillPuzzleCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	playerCharacter->SetActorLocation(FVector(-351.0f, -29.0f, 265.0f));
+	GetWorld()->GetFirstPlayerController()->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
+
 	RestartLevelHandler.Broadcast();  // parameters in Broadcast() brackets
 	BuildCubesCount = 0;
 }

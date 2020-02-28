@@ -39,14 +39,14 @@ void ALevelRange::OnEndOverlap(UPrimitiveComponent * OverlappedComp, AActor * Ot
 {
 	if (OtherActor->IsA(ADrillPuzzleCharacter::StaticClass()))
 	{
-		ADrillPuzzleCharacter* playerCharacter = Cast<ADrillPuzzleCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+		//ADrillPuzzleCharacter* playerCharacter = Cast<ADrillPuzzleCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
-		playerCharacter->SetActorLocation(FVector(-351.0f, -29.0f, 265.0f));
+		//playerCharacter->SetActorLocation(FVector(-351.0f, -29.0f, 265.0f));
 		//playerCharacter->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
 
 		//playerCharacter->GetFirstPersonCameraComponent()->SetWorldRotation(FRotator(0.0f, 0.0f, 0.0f));
 
-		GetWorld()->GetFirstPlayerController()->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
+		//GetWorld()->GetFirstPlayerController()->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
 
 		ADrillPuzzleGameMode* CurrentGameMode = Cast<ADrillPuzzleGameMode>(GetWorld()->GetAuthGameMode());
 

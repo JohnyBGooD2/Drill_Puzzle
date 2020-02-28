@@ -135,6 +135,13 @@ protected:
 	 */
 	bool EnableTouchscreenMovement(UInputComponent* InputComponent);
 
+
+	UPROPERTY()
+	float TraceDistance = 8000.0f;
+
+	UFUNCTION()
+	void CheckAndRemoveCube();
+
 public:
 	/** Returns Mesh1P subobject **/
 	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }

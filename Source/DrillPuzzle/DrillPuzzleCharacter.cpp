@@ -11,6 +11,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "BuildCube.h"
+#include "DrawDebugHelpers.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -82,6 +84,8 @@ ADrillPuzzleCharacter::ADrillPuzzleCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	//TraceDistance = 2000.0f;
 }
 
 void ADrillPuzzleCharacter::BeginPlay()
@@ -119,6 +123,10 @@ void ADrillPuzzleCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ADrillPuzzleCharacter::OnFire);
+
+	// Remove Cube
+	PlayerInputComponent->BindAction("RemoveCube", IE_Pressed, this, &ADrillPuzzleCharacter::CheckAndRemoveCube);
+
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -259,4 +267,47 @@ bool ADrillPuzzleCharacter::EnableTouchscreenMovement(class UInputComponent* Pla
 	}
 	
 	return false;
+}
+
+void ADrillPuzzleCharacter::CheckAndRemoveCube()
+{
+	FHitResult LineTraceHit;
+
+	//FVector Loc;
+	//FRotator Rot;
+	//GetController()->GetPlayerViewPoint(Loc, Rot);
+
+	//FVector StartTrace = Loc;
+	//FVector EndTrace = StartTrace + (Rot.Vector() * TraceDistance);
+
+	FVector StartTrace = FirstPersonCameraComponent->GetComponentLocation();
+	FVector EndTrace = (FirstPersonCameraComponent->GetForwardVector()*TraceDistance) + StartTrace;
+
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(this);
+
+	bool bHit = GetWorld()->LineTraceSingleByChannel(LineTraceHit, StartTrace, EndTrace, ECC_Visibility, CollisionParams); // ECollisionChannel::ECC_WorldDynamic
+
+	//DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Orange, false, 2.0f); // don't forget include
+
+	if (bHit)
+	{
+		DrawDebugLine(GetWorld(), StartTrace, LineTraceHit.ImpactPoint, FColor::Orange, false, 2.0f); // don't forget include
+		DrawDebugPoint(GetWorld(), LineTraceHit.ImpactPoint, 15.0f, FColor::Green, false, 2.0f);
+		DrawDebugLine(GetWorld(), LineTraceHit.ImpactPoint, EndTrace, FColor::Green, false, 2.0f); // don't forget include
+	}
+	else
+	{
+		DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Orange, false, 2.0f); // don't forget include
+	}
+
+	ABuildCube* CubeToRemove = Cast<ABuildCube>(LineTraceHit.GetActor());
+
+	if (CubeToRemove->IsValidLowLevel())
+	{
+		CubeToRemove->Destroy();
+		//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+		//FString::Printf(TEXT("LineTrace")));//, SpawnCounter.yCount)); // %f - float %d - int
+
+	}
 }
