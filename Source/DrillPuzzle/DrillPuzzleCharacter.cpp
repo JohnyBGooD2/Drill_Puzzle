@@ -280,6 +280,8 @@ void ADrillPuzzleCharacter::CheckAndRemoveCube()
 	//FVector StartTrace = Loc;
 	//FVector EndTrace = StartTrace + (Rot.Vector() * TraceDistance);
 
+	float TraceDistance = 8000.0f;
+
 	FVector StartTrace = FirstPersonCameraComponent->GetComponentLocation();
 	FVector EndTrace = (FirstPersonCameraComponent->GetForwardVector()*TraceDistance) + StartTrace;
 
@@ -288,17 +290,16 @@ void ADrillPuzzleCharacter::CheckAndRemoveCube()
 
 	bool bHit = GetWorld()->LineTraceSingleByChannel(LineTraceHit, StartTrace, EndTrace, ECC_Visibility, CollisionParams); // ECollisionChannel::ECC_WorldDynamic
 
-	//DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Orange, false, 2.0f); // don't forget include
 
 	if (bHit)
 	{
-		DrawDebugLine(GetWorld(), StartTrace, LineTraceHit.ImpactPoint, FColor::Orange, false, 2.0f); // don't forget include
+		DrawDebugLine(GetWorld(), StartTrace, LineTraceHit.ImpactPoint, FColor::Orange, false, 2.0f); 
 		DrawDebugPoint(GetWorld(), LineTraceHit.ImpactPoint, 15.0f, FColor::Green, false, 2.0f);
-		DrawDebugLine(GetWorld(), LineTraceHit.ImpactPoint, EndTrace, FColor::Green, false, 2.0f); // don't forget include
+		DrawDebugLine(GetWorld(), LineTraceHit.ImpactPoint, EndTrace, FColor::Green, false, 2.0f); 
 	}
 	else
 	{
-		DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Orange, false, 2.0f); // don't forget include
+		DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Orange, false, 2.0f); 
 	}
 
 	ABuildCube* CubeToRemove = Cast<ABuildCube>(LineTraceHit.GetActor());

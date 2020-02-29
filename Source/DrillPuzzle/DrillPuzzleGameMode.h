@@ -32,6 +32,7 @@ public:
 	void OnRestartAndReload();
 
 	FSpawnBuildCubesCounters SpawnCounter;
+
 	UPROPERTY()
 	ETestEnum EnumToTest;
 

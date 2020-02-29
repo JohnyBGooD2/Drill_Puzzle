@@ -7,24 +7,6 @@
 #include "BuildCube.h"
 
 
-//USTRUCT()  //USTRUCT(BlueprintType)
-//struct FSpawnBuildCubesCounters
-//{
-//	GENERATED_USTRUCT_BODY()
-//
-//	UPROPERTY()
-//	int32 xCount = 0;
-//
-//	UPROPERTY()
-//	int32 yCount = 0;
-//
-//	UPROPERTY()
-//	int32 zCount = 0;
-//
-//};
-
-//if (OtherActor->IsA(AEnemy::StaticClass()))
-
 ADrillPuzzleGameMode::ADrillPuzzleGameMode(): Super()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -52,11 +34,10 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 
 	EnumToTest = ETestEnum::ThirdEnumCheck;
 
-	//const TEnumAsByte<ETestEnum> EnumToPrint = ETestEnum::FirstEnumCheck;
-	//FString EnumAsString = UEnum::GetValueAsString(EnumToPrint.GetValue());
+	
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	FString::Printf(TEXT("%s"), *GETENUMSTRING("ETestEnum", EnumToTest))); // %f - float %d - int
+	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
+	//FString::Printf(TEXT("%s"), *GETENUMSTRING("ETestEnum", EnumToTest))); // %f - float %d - int
 
 	UWorld* World = GetWorld();
 	if (World && BuildCubesCount < 3500)

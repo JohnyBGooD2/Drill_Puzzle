@@ -136,8 +136,8 @@ protected:
 	bool EnableTouchscreenMovement(UInputComponent* InputComponent);
 
 
-	UPROPERTY()
-	float TraceDistance = 8000.0f;
+	//UPROPERTY()
+	//float TraceDistance = 8000.0f;
 
 	UFUNCTION()
 	void CheckAndRemoveCube();
