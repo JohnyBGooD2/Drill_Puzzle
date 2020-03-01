@@ -7,9 +7,6 @@
 #include "DrillPuzzleCharacter.h"
 
 
-
-//IsValidLowLevel()
-
 // Sets default values
 ABuildCube::ABuildCube()
 {
@@ -24,13 +21,6 @@ ABuildCube::ABuildCube()
 
 	CubeMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CubeMesh"));  
 	CubeMesh->SetupAttachment(OverlapBox); 
-
-	//CurrentGameMode = Cast<ADrillPuzzleGameMode>(GetWorld()->GetAuthGameMode());
-
-	//if (CurrentGameMode->IsValidLowLevel())
-	//{
-	//CurrentGameMode->RestartLevelHandler.AddDynamic(this, &ABuildCube::OnLevelRestartReload);
-	//}
 }
 
 // Called when the game starts or when spawned  
@@ -42,8 +32,6 @@ void ABuildCube::BeginPlay()
 	{
 	    CurrentGameMode->RestartLevelHandler.AddDynamic(this, &ABuildCube::OnLevelRestartReload);
 	}
-	
-	
 }
 
 // Called every frame
@@ -53,12 +41,7 @@ void ABuildCube::Tick(float DeltaTime)
 
 	if (bAttract == true)
 	{
-
-		//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-		//FString::Printf(TEXT("AttractTrue")));//, SpawnCounter.yCount)); // %f - float %d - int
-
 		TArray<AActor*> ProjectilesOverlapped;
-		//OverlapBox->GetOverlappingActors(ProjectilesOverlapped, TSubclassOf<ADrillPuzzleProjectile>());
 		OverlapBox->GetOverlappingActors(ProjectilesOverlapped, ADrillPuzzleProjectile::StaticClass());
 
 		TArray<AActor*> CharacterOverlapped;
