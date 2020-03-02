@@ -8,8 +8,6 @@
 #include "Camera/CameraComponent.h"
 #include "DrillPuzzleGameMode.h"
 
-
-
 // Sets default values
 ALevelRange::ALevelRange()
 {
@@ -35,19 +33,11 @@ void ALevelRange::Tick(float DeltaTime)
 
 }
 
+// When Player out of level - restart
 void ALevelRange::OnEndOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
 {
 	if (OtherActor->IsA(ADrillPuzzleCharacter::StaticClass()))
 	{
-		//ADrillPuzzleCharacter* playerCharacter = Cast<ADrillPuzzleCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
-
-		//playerCharacter->SetActorLocation(FVector(-351.0f, -29.0f, 265.0f));
-		//playerCharacter->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
-
-		//playerCharacter->GetFirstPersonCameraComponent()->SetWorldRotation(FRotator(0.0f, 0.0f, 0.0f));
-
-		//GetWorld()->GetFirstPlayerController()->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
-
 		ADrillPuzzleGameMode* CurrentGameMode = Cast<ADrillPuzzleGameMode>(GetWorld()->GetAuthGameMode());
 
 		if (CurrentGameMode->IsValidLowLevel())

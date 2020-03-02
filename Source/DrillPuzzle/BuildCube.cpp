@@ -39,6 +39,7 @@ void ABuildCube::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Attract cubes to projectile
 	if (bAttract == true)
 	{
 		TArray<AActor*> ProjectilesOverlapped;
@@ -47,13 +48,7 @@ void ABuildCube::Tick(float DeltaTime)
 		TArray<AActor*> CharacterOverlapped;
 		OverlapBox->GetOverlappingActors(CharacterOverlapped, ADrillPuzzleCharacter::StaticClass());
 
-		//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-		//FString::Printf(TEXT("%d"), ProjectilesOverlapped.Num()));//, SpawnCounter.yCount)); // %f - float %d - int
-
-		/*GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-		FString::Printf(TEXT("%s"), this->bCharacterOverlapped ? TEXT("True") : TEXT("False")));*/
-
-		if (ProjectilesOverlapped.Num() > 0) //&& CharacterOverlapped.Num() == 0)
+		if (ProjectilesOverlapped.Num() > 0) 
 		{
 				FVector NewLocation = GetActorLocation() + (ProjectilesOverlapped[0]->GetActorLocation() - GetActorLocation()) * DeltaTime * 2.5f;//.GetSafeNormal()
 				SetActorLocation(NewLocation);
@@ -92,8 +87,5 @@ UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 
 void ABuildCube::OnLevelRestartReload()
 {
-	/*GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	FString::Printf(TEXT("I hear level restart")));*/
-
 	Destroy();
 }

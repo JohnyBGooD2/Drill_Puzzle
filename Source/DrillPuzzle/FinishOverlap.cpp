@@ -33,23 +33,15 @@ void AFinishOverlap::Tick(float DeltaTime)
 
 }
 
+// Level Completed on Overlap
 void AFinishOverlap::OnOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-
 	GetWorld()->GetTimerManager().SetTimer(delayToFinishHandle, this, &AFinishOverlap::OnDelayFinish, 5.0f, false, -1.0f); 
-
-	//GetWorld()->GetTimerManager().ClearTimer(NameOfHandle);
-
-	//GetWorld()->GetTimerManager().IsTimerActive(NameOfHandle);
-
 }
 
+// Delay before restart level
 void AFinishOverlap::OnDelayFinish()
 {
-
-	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	//FString::Printf(TEXT("Hi"))); // %f - float %d - int
-
 	ADrillPuzzleGameMode* CurrentGameMode = Cast<ADrillPuzzleGameMode>(GetWorld()->GetAuthGameMode());
 	CurrentGameMode->OnRestartAndReload();
 }

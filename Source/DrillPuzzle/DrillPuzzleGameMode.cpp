@@ -32,13 +32,6 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	EnumToTest = ETestEnum::ThirdEnumCheck;
-
-	
-
-	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	//FString::Printf(TEXT("%s"), *GETENUMSTRING("ETestEnum", EnumToTest))); // %f - float %d - int
-
 	UWorld* World = GetWorld();
 	if (World && BuildCubesCount < 3500)
 	{
@@ -51,52 +44,13 @@ void ADrillPuzzleGameMode::Tick(float DeltaTime)
 		spawnLocation.Y += FMath::Sin(randomAngle * 3.14f / 180.0f) * spawnDistance;
 		spawnLocation.Z += FMath::RandRange(-1000.0f, 1000.0f);
 
-	/*	spawnLocation += FVector(FMath::RandRange(-100.0f, 100.0f),
-		FMath::RandRange(-100.0f, 100.0f), FMath::RandRange(-100.0f, 100.0f));
-
-		spawnLocation = (spawnLocation - playerLocation).GetSafeNormal() * spawnDistance;*/
-
-		//FVector SpawnLocation = FVector(FMath::RandRange(-800.0f, 800.0f), FMath::RandRange(-800.0f, 800.0f), 40.0f);
-
-
 		World->SpawnActor<ABuildCube>(BuildCubeBlueprint, spawnLocation, FRotator::ZeroRotator);
 		BuildCubesCount++;
-		//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-		//FString::Printf(TEXT("%d"), BuildCubesCount)); // %f - float %d - int
-
-		// x - depth, y - width, z - height
-
-
-		/*
-
-		if (SpawnCounter.yCount < 100)
-		{
-			if (SpawnCounter.xCount < 100) //&& SpawnCounter.yCount < 1000) //&& SpawnCounter.zCount < 1000)
-			{
-				for (int x = 0; x < 10; x++)
-				{
-					World->SpawnActor<ABuildCube>(BuildCubeBlueprint, SpawnLocation, FRotator::ZeroRotator);
-					SpawnCounter.xCount += 1;
-					SpawnLocation.X += 10.0f;
-				}
-			}
-			else
-			{
-				SpawnCounter.yCount += 1;
-				SpawnCounter.xCount = 0;
-
-				SpawnLocation.Y += 10.0f;
-				SpawnLocation.X = 0.0f;
-			}
-			GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-			FString::Printf(TEXT("%d"), SpawnCounter.yCount)); // %f - float %d - int
-		}
-
-		*/
 	}
 
 }
 
+// Restart not reopening level
 void ADrillPuzzleGameMode::OnRestartAndReload()
 {
 	
@@ -104,7 +58,7 @@ void ADrillPuzzleGameMode::OnRestartAndReload()
 	playerCharacter->SetActorLocation(FVector(-351.0f, -29.0f, 265.0f));
 	GetWorld()->GetFirstPlayerController()->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
 
-	RestartLevelHandler.Broadcast();  // parameters in Broadcast() brackets
+	RestartLevelHandler.Broadcast(); 
 	BuildCubesCount = 0;
 }
 

@@ -36,5 +36,4 @@ public:
 
 private:
 	FTimerHandle delayToFinishHandle;
-
 };

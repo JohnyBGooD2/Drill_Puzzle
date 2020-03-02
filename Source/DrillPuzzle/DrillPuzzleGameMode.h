@@ -5,7 +5,6 @@
 
 #include "CoreMinimal.h"
 #include "DrillPuzzle.h"
-//#include "BuildCube.h"
 #include "GameFramework/GameModeBase.h"
 #include "DrillPuzzleGameMode.generated.h"
 
@@ -30,12 +29,6 @@ public:
 	FOnLevelRestartAndReload RestartLevelHandler;
 
 	void OnRestartAndReload();
-
-	FSpawnBuildCubesCounters SpawnCounter;
-
-	UPROPERTY()
-	ETestEnum EnumToTest;
-
 
 private:
 	FVector SpawnLocation;

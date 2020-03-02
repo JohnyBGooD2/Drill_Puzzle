@@ -48,7 +48,7 @@ public:
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	UFUNCTION()
-	void OnLevelRestartReload(); // in brackets parameters of Dispatcher
+	void OnLevelRestartReload(); 
 
 
 };

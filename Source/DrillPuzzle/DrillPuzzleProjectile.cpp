@@ -51,43 +51,16 @@ void ADrillPuzzleProjectile::Tick(float DeltaTime)
 	{
 		Destroy();
 	}
-	
-	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	//FString::Printf(TEXT("%f"), distToPlayer));//, SpawnCounter.yCount)); // %f - float %d - int
-
-	//if (OtherActor == (GetWorld()->GetFirstPlayerController()->GetPawn()))
-	//{
-	//	((AMainGameMode*)GetWorld()->GetAuthGameMode())->OnGameOver(true);
-	//}
 }
 
 void ADrillPuzzleProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-
-	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	//FString::Printf(TEXT("HitProjectile")));//, SpawnCounter.yCount)); // %f - float %d - int
-	//if (OtherActor->IsA(ABuildCube::StaticClass()))
-	//{
-		this->Destroy();
-	//}
-
-
-
-	// Only add impulse and destroy projectile if we hit a physics
-	/*if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
-	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
-		Destroy();
-	}*/
+	this->Destroy();
 }
 
+// Attract cubes and convert them to platforms
 void ADrillPuzzleProjectile::OnAttractOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-
-	//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-	//FString::Printf(TEXT("AttractTrue")));//, SpawnCounter.yCount)); // %f - float %d - int
-
 	if (OtherActor->IsA(ABuildCube::StaticClass()))
 	{
 		Cast<ABuildCube>(OtherActor)->bAttract = true;

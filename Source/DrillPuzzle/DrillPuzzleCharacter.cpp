@@ -16,9 +16,6 @@
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
-//////////////////////////////////////////////////////////////////////////
-// ADrillPuzzleCharacter
-
 ADrillPuzzleCharacter::ADrillPuzzleCharacter()
 {
 	// Set size for collision capsule
@@ -84,8 +81,6 @@ ADrillPuzzleCharacter::ADrillPuzzleCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
-
-	//TraceDistance = 2000.0f;
 }
 
 void ADrillPuzzleCharacter::BeginPlay()
@@ -109,7 +104,6 @@ void ADrillPuzzleCharacter::BeginPlay()
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////
 // Input
 
 void ADrillPuzzleCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -269,16 +263,10 @@ bool ADrillPuzzleCharacter::EnableTouchscreenMovement(class UInputComponent* Pla
 	return false;
 }
 
+// Check and remove cubes and platforms with right mouse button
 void ADrillPuzzleCharacter::CheckAndRemoveCube()
 {
 	FHitResult LineTraceHit;
-
-	//FVector Loc;
-	//FRotator Rot;
-	//GetController()->GetPlayerViewPoint(Loc, Rot);
-
-	//FVector StartTrace = Loc;
-	//FVector EndTrace = StartTrace + (Rot.Vector() * TraceDistance);
 
 	float TraceDistance = 8000.0f;
 
@@ -307,8 +295,5 @@ void ADrillPuzzleCharacter::CheckAndRemoveCube()
 	if (CubeToRemove->IsValidLowLevel())
 	{
 		CubeToRemove->Destroy();
-		//GEngine->AddOnScreenDebugMessage(-1, 5.35f, FColor::Cyan.WithAlpha(255),
-		//FString::Printf(TEXT("LineTrace")));//, SpawnCounter.yCount)); // %f - float %d - int
-
 	}
 }
