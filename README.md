@@ -1,4 +1,6 @@
-Shoot, create planforms and get to the Finish! Unreal Engine 4, C++.
+Shoot, create platforms and get to the Finish! 
+
+Unreal Engine 4, C++.
 
 
 CONTROLS:
